@@ -24,11 +24,13 @@ import Link from 'next/link'
 import { authClient } from '@/lib/auth-client'
 import { useRouter } from 'next/navigation'
 
+import { FaGithub, FaGoogle } from "react-icons/fa"
+
 const formSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   email: z.string().email("Invalid email address"),
-  password: z.string().min(1, { message: "Password must be at least 6 characters long" }),
-  confirmPassword: z.string().min(1, { message: "Password must be at least 6 characters long" }),
+  password: z.string().min(6, { message: "Password must be at least 6 characters long" }),
+  confirmPassword: z.string().min(6, { message: "Password must be at least 6 characters long" }),
 })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
@@ -37,9 +39,9 @@ const formSchema = z.object({
 
 
 const SignUpView = () => {
-  const router = useRouter()
   const [error, setError] = useState<string | null>(null)
   const [pending, setPending] = useState(false)
+  const router = useRouter()
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -59,21 +61,44 @@ const SignUpView = () => {
       {
         name: data.name,
         email: data.email,
-        password: data.password
+        password: data.password,
+        callbackURL: "/"
       },
       {
         onSuccess: () => {
-          router.push('/')
           setPending(false)
+          router.push('/')
         },
         onError: ({ error }) => {
           setError(error.message)
+          setPending(false)
         }
       }
     )
 
   }
 
+  const onSocial = async (provider: "github" | "google") => {
+    setError(null)
+    setPending(true)
+
+    authClient.signIn.social(
+      {
+        provider: provider,
+        callbackURL: "/"
+      },
+      {
+        onSuccess: () => {
+          setPending(false)
+        },
+        onError: ({ error }) => {
+          setError(error.message)
+          setPending(false)
+        }
+      }
+    )
+
+  }
   return (
     <div className="flex flex-col gap-6">
       <Card className="overflow-hidden p-0">
@@ -196,16 +221,18 @@ const SignUpView = () => {
                     variant="outline"
                     type="button"
                     className="w-full"
+                    onClick={() => onSocial('google')}
                   >
-                    Google
+                    <FaGoogle />
                   </Button>
                   <Button
                     disabled={pending}
                     variant="outline"
                     type="button"
                     className="w-full"
+                    onClick={() => onSocial('github')}
                   >
-                    Github
+                    <FaGithub />
                   </Button>
                 </div>
 

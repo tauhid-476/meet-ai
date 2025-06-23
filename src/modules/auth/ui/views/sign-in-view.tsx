@@ -24,9 +24,12 @@ import Link from 'next/link'
 import { authClient } from '@/lib/auth-client'
 import { useRouter } from 'next/navigation'
 
+import { FaGithub, FaGoogle } from "react-icons/fa"
+
+
 const formSchema = z.object({
   email: z.string().email("Invalid email address"),
-  password: z.string().min(1, { message: "Password must be at least 6 characters long" }),
+  password: z.string().min(6, { message: "Password must be at least 6 characters long" }),
 })
 
 
@@ -54,7 +57,29 @@ const SignInView = () => {
       },
       {
         onSuccess: () => {
+          setPending(false)
           router.push('/')
+        },
+        onError: ({ error }) => {
+          setError(error.message)
+          setPending(false)
+        }
+      }
+    )
+
+  }
+
+  const onSocial = async (provider: "github" | "google") => {
+    setError(null)
+    setPending(true)
+
+    authClient.signIn.social(
+      {
+        provider: provider,
+        callbackURL: "/"
+      },
+      {
+        onSuccess: () => {
           setPending(false)
         },
         onError: ({ error }) => {
@@ -147,16 +172,18 @@ const SignInView = () => {
                     variant="outline"
                     type="button"
                     className="w-full"
+                    onClick={() => onSocial('google')}
                   >
-                    Google
+                    <FaGoogle />
                   </Button>
                   <Button
                     disabled={pending}
                     variant="outline"
                     type="button"
                     className="w-full"
+                    onClick={() => onSocial('github')}
                   >
-                    Github
+                    <FaGithub />
                   </Button>
                 </div>
 
