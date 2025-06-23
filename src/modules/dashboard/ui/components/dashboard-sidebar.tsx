@@ -22,7 +22,7 @@ import { usePathname } from "next/navigation"
 import React from 'react'
 import DashboardUserButton from "./dashboard-user-button"
 
-const firsSection = [
+const firstSection = [
   {
     icon: VideoIcon,
     label: "Meetings",
@@ -49,7 +49,7 @@ function DashboardSidebar() {
 
   return (
     <Sidebar>
-      <SidebarHeader className="text-sidebar-accent-forground">
+      <SidebarHeader className="text-sidebar-accent-foreground">
         <Link href="/" className="flex items-center gap-2 px-2 pt-2">
           <Image src="/logo.svg" height={36} width={36} alt="Meet.ai" />
           <p className="text-2xl font-semibold">Meet.AI</p>
@@ -65,7 +65,7 @@ function DashboardSidebar() {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {firsSection.map((item) => (
+              {firstSection.map((item) => (
                 <SidebarMenuItem key={item.href}>
                   <SidebarMenuButton
                     asChild
