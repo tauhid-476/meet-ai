@@ -43,7 +43,7 @@ export const AgentForm = ({
             onSuccess: async () => {
                 //we invalidate the getmany one cuz we created a new one
                 await queryClient.invalidateQueries(
-                    trpc.agents.getMany.queryOptions()
+                    trpc.agents.getMany.queryOptions({})
                 );
 
                 if (initialValues?.id) {
