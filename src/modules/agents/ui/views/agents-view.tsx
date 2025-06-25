@@ -11,6 +11,7 @@ import { DataTable } from '../components/data-table'
 import { columns } from '../components/columns'
 import { useAgentsFilters } from '../../hooks/use-agents-filters'
 import { DataPagination } from '../components/data-pagination'
+import { useRouter } from 'next/navigation'
 
 
 export const AgentsView = () => {
@@ -34,13 +35,18 @@ export const AgentsView = () => {
     //     )
     // }
     const [filters, setFilters] = useAgentsFilters()
+    const router = useRouter()
     const { data } = useSuspenseQuery(trpc.agents.getMany.queryOptions({
         ...filters
     }));
 
     return (
         <div className='flex-1 pb-4 px-4 md:px-8 flex flex-col gap-y-4'>
-            <DataTable columns={columns} data={data.items} />
+            <DataTable 
+            columns={columns} 
+            data={data.items}
+            onRowClick={(row) => router.push(`/agents/${row.id}`)}
+            />
             <DataPagination
              page={filters.page}
              totalPages={data.totalPages}
@@ -60,7 +66,7 @@ export const AgentsViewLoading = () => {
     return (
         <LoadingState
             title="Loading Agents"
-            description="This may take few seconds, please wait..."
+            description="This may take few seconds"
         />)
 }
 
@@ -68,7 +74,7 @@ export const AgentsErrorState = () => {
     return (
         <ErrorState
             title="Error Loading Agents"
-            description="Please try again later"
+            description="Something went wrong"
         />
     )
 }
