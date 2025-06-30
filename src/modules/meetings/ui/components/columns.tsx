@@ -65,7 +65,7 @@ export const columns: ColumnDef<MeetingGetMany[number]>[] = [
             seed={row.original.agent.name}
             className="size-4"
           />
-          <span className="text-s, text-muted-foreground">{row.original.startedAt ? format(row.original.startedAt, "MMM d") : ""}</span>
+          <span className="text-sm text-muted-foreground">{row.original.startedAt ? format(row.original.startedAt, "MMM d") : ""}</span>
         </div>
       </div>
     )
@@ -79,7 +79,7 @@ export const columns: ColumnDef<MeetingGetMany[number]>[] = [
         <Badge
           variant="outline"
           className={cn(
-            "capitalize [&<svg]:size-4 text-muted-foreground",
+            "capitalize [&>svg]:size-4 text-muted-foreground",
             statusColorMap[row.original.status as keyof typeof statusColorMap]
           )}
         >
