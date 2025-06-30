@@ -5,7 +5,7 @@ import { ErrorState } from "@/components/error-state";
 import { LoadingState } from "@/components/loading-state";
 import { useTRPC } from "@/trpc/client";
 import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
-import { AgentIdViewHeader } from "./agent-id-view-header";
+import { AgentIdViewHeader } from "../components/agent-id-view-header";
 import GeneratedAvatar from "@/components/generated-avatar";
 import { Badge } from "@/components/ui/badge";
 import { VideoIcon } from "lucide-react";
