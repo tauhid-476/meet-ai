@@ -23,6 +23,8 @@ import {
 } from "lucide-react"
 import { format } from "date-fns"
 import { formatDuration } from "@/lib/utils"
+import { Transcript } from "./transcript"
+import { ChatProvider } from "./chat-provider"
 
 interface Props {
   data: MeetingGetOne
@@ -86,9 +88,14 @@ export const CompletedState = ({ data }: Props) => {
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
         </div>
-        <TabsContent
-          value="recording"
-        >
+        <TabsContent value="transcript">
+          <Transcript meetingId={data.id} />
+        </TabsContent>
+        <TabsContent value="chat">
+          <ChatProvider meetingId={data.id} meetingName={data.name} />
+        </TabsContent>
+
+        <TabsContent value="recording">
           <div className="bg-white px-4 py-5 rounded-lg">
             <video
               src={data.recordingUrl!}
@@ -159,7 +166,7 @@ export const CompletedState = ({ data }: Props) => {
                       <strong className="font-semibold" {...props} />
                     ),
                     code: (props) => (
-                      <code className="bg-gray-100 px-1 py-0.5 rounded" {...props} /> 
+                      <code className="bg-gray-100 px-1 py-0.5 rounded" {...props} />
                     ),
                     blockquote: (props) => (
                       <blockquote className="border-l-4 pl-4 italic my-4" {...props} />
