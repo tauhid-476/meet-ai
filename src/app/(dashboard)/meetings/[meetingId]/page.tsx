@@ -41,7 +41,6 @@ const Page = async ({ params }: Props) => {
   void queryClient.prefetchQuery(trpc.meetings.getOne.queryOptions({
     id: meetingId
   }))
-  //TODO: Prefetch `meetings.getTranscript` 
 
 
   return (

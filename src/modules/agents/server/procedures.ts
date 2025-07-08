@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { agents } from "@/db/schema";
+import { agents, meetings } from "@/db/schema";
 import {
   createTRPCRouter,
   premiumProcedure,
@@ -13,8 +13,7 @@ import {
   desc,
   eq,
   getTableColumns,
-  ilike,
-  sql
+  ilike
 } from "drizzle-orm";
 import {
   DEFAULT_PAGE,
@@ -43,6 +42,7 @@ export const agentsRouter = createTRPCRouter({
       }
       return updatedAgent;
     }),
+
   remove: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ input, ctx }) => {
@@ -66,9 +66,8 @@ export const agentsRouter = createTRPCRouter({
 
       const [existingAgent] = await db
         .select({
-          //TODO:Replace with your actual data
-          meetingCount: sql<number>`5`,
-          ...getTableColumns(agents)
+          ...getTableColumns(agents),
+          meetingCount: db.$count(meetings, eq(agents.id, meetings.agentId))
         })
         .from(agents)
         .where(and(
@@ -102,9 +101,9 @@ export const agentsRouter = createTRPCRouter({
 
       const data = await db
         .select({
-          //TODO:Replace with your actual data
-          meetingCount: sql<number>`5`,
+          meetingCount: db.$count(meetings, eq(agents.id, meetings.agentId)),
           ...getTableColumns(agents)
+          // Get all columns from agents table
         })
         .from(agents)
         .where(
@@ -137,6 +136,7 @@ export const agentsRouter = createTRPCRouter({
 
 
     }),
+
   create: premiumProcedure("agents")
     .input(agentsInsertSchema)
     .mutation(async ({ input, ctx }) => {
