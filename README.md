@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧠 Meet AI – Your Intelligent Meeting Assistant
+**Click on the thumbnail to see the video of project demonstration**
 
-## Getting Started
+[![Project Demonstration Video](https://ik.imagekit.io/lt17u3pfu/college-projects/Screenshot%20From%202025-07-13%2016-47-08.png?updatedAt=1752405462939)](https://ik.imagekit.io/lt17u3pfu/college-projects/VN20250709_154945.mp4?updatedAt=1752405161462)
 
-First, run the development server:
+🚨 **Note:** This project currently won't function unless valid API keys are provided for services like OpenAI, Stream, Google, etc. (your personal keys may be expired or usage-limited).
+
+---
+
+
+## 🚀 Overview
+
+**Meet AI** is your AI-powered video call assistant that can join meetings, answer questions in real-time, and provide post-meeting summaries, transcripts, and recordings.
+
+Whether you're running client calls, team standups, or casual catch-ups — let AI handle the heavy lifting so you can focus on the conversation.
+
+---
+
+## ✨ Features
+
+- 🎙️ **Create AI Agents:** Customize your agent’s personality and expertise.
+- 📅 **Schedule Meetings:** Assign AI agents to meetings and track upcoming ones.
+- 🎥 **Live AI Assistant:** Join calls and interact with AI in real-time.
+- ⚙️ **Post-Meeting Workflow:** Auto-summary, transcript, and insights generation using background jobs (Inngest).
+- 📊 **Insight Tabs:** View summaries, transcripts, recordings, and even chat with your AI afterward.
+
+---
+
+## 🧪 Tech Stack
+
+- ⚛️ **React + Next.js**
+- 💬 **tRPC** (API layer)
+- 🧑‍💻 **TypeScript**
+- 🎨 **Tailwind CSS + Shadcn/ui**
+- 🧱 **Drizzle ORM** + 🐘 **Neon PostgreSQL**
+- 🤖 **OpenAI & Gemini (LLMs)**
+- ⏱️ **Inngest** (background jobs)
+- 💳 **Polar** (payments)
+- 📹 **Stream Video & Chat API**
+
+---
+
+## 🛠️ Self-Host Setup
+
+### 1. **Clone the Repo**
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/tauhid-476/meet-ai.git
+cd meet-ai
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. **Install Dependencies**
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. **Setup env**
+Create a .env file in the root and add your environment variables (based on the ones you shared):
+```bash
+DATABASE_URL=your_postgres_url
+BETTER_AUTH_SECRET=your_secret
+BETTER_AUTH_URL=http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+GITHUB_CLIENT_ID=your_github_client_id
+GITHUB_CLIENT_SECRET=your_github_secret
 
-## Learn More
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_secret
 
-To learn more about Next.js, take a look at the following resources:
+NEXT_PUBLIC_APP_URL=http://localhost:3000
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+NEXT_PUBLIC_STREAM_VIDEO_API_KEY=your_stream_video_key
+STREAM_VIDEO_SECRET_KEY=your_stream_video_secret
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+NEXT_PUBLIC_STREAM_CHAT_API_KEY=your_stream_chat_key
+STREAM_CHAT_SECRET_KEY=your_stream_chat_secret
 
-## Deploy on Vercel
+OPENAI_API_KEY=your_openai_key
+GEMINI_API_KEY=your_gemini_key
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+POLAR_ACCESS_TOKEN=your_polar_token
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 4. **Setup Database**
+Make sure you have a Neon PostgreSQL database. Push your schema
+```bash
+npm run db:push
+```
+
+### 5. **Run the app locally**
+```bash
+npm run dev
+```
+
+### 6. **Setup Webhooks**
+```bash
+npm run dev:webhook
+```
+
+### **🙏 Acknowledgments**
+Thanks to all the OSS libraries and APIs that made this project possible.
+
+If you find it helpful, feel free to ⭐ the repo or share your feedback!
+Let’s reimagine meetings together 🚀
+
